@@ -1,7 +1,7 @@
 const convertButton = document.querySelector('.convertButton')
 const currencySelect = document.querySelector('.currency-select')
 
-function conertValues() {
+async function conertValues() {
     const inputCurrencyValue = document.querySelector(".input-currency").value
 
     const currencyValue = document.querySelector(".currency-value")
@@ -9,16 +9,16 @@ function conertValues() {
     const currencyValueToConvert = document.querySelector(".currency-value-to-convert")
 
     
+   const data= await fetch(" https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,BTC-BRL").then(response=>response.json())
+    console.log(data)
 
+    const dolarToday = data.USDBRL.high
 
+    const euroToday = data.EURBRL.high
 
-    const dolarToday = 4.81
+    
 
-    const euroToday = 5.37
-
-    const libraToday = 6.18
-
-    const bitcoinToday = 142761
+    const bitcoinToday = data.BTCBRL.high
 
 
     if (currencySelect.value === "dolar") {
@@ -37,13 +37,7 @@ function conertValues() {
         
     }
 
-    if (currencySelect.value === "libra") {
-        currencyValue.innerHTML = new Intl.NumberFormat("en-UK", {
-            style: "currency",
-            currency: "GBP"
-        }).format(inputCurrencyValue / libraToday)
-        
-    }
+   
 
     if (currencySelect.value === "bitcoin") {
         currencyValue.innerHTML = new Intl.NumberFormat("en-US", {
